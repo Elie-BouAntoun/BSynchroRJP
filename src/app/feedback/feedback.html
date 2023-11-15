@@ -1,0 +1,100 @@
+<div class="items_list_container">
+  <div class="items_list_filter_container">
+    <div class="items_list_sort">
+      Sort by :
+      <a class="items_list_filter_value_container" (click)="$event.stopPropagation(); ToggleSortByList()"> <!--stopPropagation is used to stop clickoutside directive from triggering-->
+        <span class="items_list_filter_value">{{enum_feedback_sort_by_list[sort_by_value].replace("_", " ")}}</span>        
+        <mat-icon aria-hidden="false" fontIcon="{{show_sort_by_list ? 'expand_less' : 'expand_more'}}"></mat-icon>
+      </a>
+      <ul id="feedback_sort_list" class="items_list_filter_box" *ngIf="show_sort_by_list" (clickOutside)="ToggleSortByList()"> <!--clickOutside is added here and not at parent level to avoid always triggering it on any click without being required since ngIf is used -->
+        <li *ngFor="let item of sort_by_list">
+          <a *ngIf="sort_by_value != item.value" (click)="SortList(item.value)"><mat-icon aria-hidden="false" fontIcon="chevron_right"></mat-icon> {{item.name}}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="items_list_filter">
+      Filter category :
+      <a class="items_list_filter_value_container" (click)="$event.stopPropagation(); ToggleFilterList()"> <!--stopPropagation is used to stop clickoutside directive from triggering-->
+        <span class="items_list_filter_value">{{filter_value == "" ? 'No filter' : filter_value}}</span>
+        <mat-icon aria-hidden="false" fontIcon="{{show_filter_list ? 'expand_less' : 'expand_more'}}"></mat-icon>
+      </a>
+      <div id="feedback_filter_list" class="items_list_filter_box" *ngIf="show_filter_list" (clickOutside)="ToggleFilterList()"> <!--clickOutside is added here and not at parent level to avoid always triggering it on any click without being required since ngIf is used -->
+        <div class="input_container">
+          <input type="text" name="txtFilter" [(ngModel)]="filter_value" placeholder="Enter Filter Value" (keyup.enter)="FilterList()" />
+        </div>
+        <ul class="filter_options">
+          <li>
+            <a (click)="SetFilterOption(enum_filter_options.Equals)">
+              <span>
+                <mat-icon aria-hidden="false" fontIcon="check"
+                          *ngIf="filter_option == enum_filter_options.Equals"></mat-icon>
+              </span>
+              Equals
+            </a>
+          </li>
+          <li>
+            <a (click)="SetFilterOption(enum_filter_options.Contains)">
+              <span>
+                <mat-icon aria-hidden="false" fontIcon="check"
+                          *ngIf="filter_option == enum_filter_options.Contains"></mat-icon>
+              </span>
+              Contains
+            </a>
+          </li>
+          <li>
+            <a (click)="SetFilterOption(enum_filter_options.Starts_With)">
+              <span>
+                <mat-icon aria-hidden="false" fontIcon="check"
+                          *ngIf="filter_option == enum_filter_options.Starts_With"></mat-icon>
+              </span>
+              Starts With
+            </a>
+          </li>
+          <li>
+            <a (click)="SetFilterOption(enum_filter_options.Ends_With)">
+              <span>
+                <mat-icon aria-hidden="false" fontIcon="check"
+                          *ngIf="filter_option == enum_filter_options.Ends_With"></mat-icon>
+              </span>
+              Ends With
+            </a>
+          </li>
+        </ul>
+        <div class="items_list_filter_btns">
+          <button (click)="FilterList()">apply filter</button>
+          <button (click)="ClearFilter()">clear filter</button>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <ul class="items_list">
+    <li *ngFor="let item of feedback_categories_list_data" [id]="'feedback_' + item.id">
+      <div>
+        <span class="item_vote">
+          <a (click)="UpVoteCategory(item.id)">
+            <span class="item_vote_icon">
+              <mat-icon aria-hidden="false" fontIcon="expand_less"></mat-icon>
+            </span>
+            {{item.nbOfVotes}}
+          </a>
+          <span class="voting_success">
+            <mat-icon aria-hidden="false" fontIcon="thumb_up"></mat-icon>
+          </span>
+        </span>
+      </div>
+      <div class="item_name_container">
+        <p class="item_name">{{item.name}}</p>
+        <p class="item_desc">{{item.description}}</p>
+        <p class="item_error">{{item.errorMsg}}</p>
+      </div>
+      <div>
+        <a class="item_comment_count">
+          <mat-icon aria-hidden="false" fontIcon="chat_bubble"></mat-icon>
+          <span>{{item.nbOfComments}}</span>
+        </a>
+      </div>
+    </li>
+  </ul>
+</div>

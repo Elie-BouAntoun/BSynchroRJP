@@ -1,0 +1,133 @@
+
+@import "./variables";
+@import "./mixin";
+
+/*#region tablet */
+@media screen and (max-width: 768px) {
+  #main {
+    position: static;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    padding: 15px 10px 0px 10px;
+  }
+}
+/*#endregion tablet */
+
+/*#region mobile */
+@media screen and (max-width: 767px) {
+  #main {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  #menu {
+    position: fixed;
+    top: 0px;
+    @include position($direction, right, 0px);
+    float: none;
+    width: 100%;
+    height: auto;
+    padding-top: 10px;
+    @include padding($direction, right, 10px);
+    @include text-align($direction, right);
+    background-color: $MainBackgroundColor;
+    z-index: 900;
+
+    .mobile_menu_icon {
+      display: inline-block;
+
+      .mat-icon {
+        width: auto;
+        height: auto;
+        padding: 0.5rem;
+        border-radius: 5px;
+        font-size: 1.5rem;
+        background-color: $Color1;
+        color: $Color2;
+      }
+    }
+
+    .mobile_menu_icon:hover .mat-icon {
+      background-color: $Color2;
+      color: $Color1;
+    }
+
+    ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      @include position($direction, right, -20px);
+      width: 300px;
+      height: auto;
+      background-color: $Color3;
+      border-radius: 5px;
+      opacity: 0;
+      z-index: 200;
+
+      li {
+        height: auto;
+        min-height: auto;
+        margin-bottom: 0px;
+
+        a {
+          display: block;
+          height: auto;
+          @include padding($direction, left, 15px);
+          padding: 10px 15px;
+          border-top: 1px solid $Color1;
+          border-radius: 0px;
+          background: none;
+          @include text-align($direction, left);
+
+          span {
+            background: none;
+            -webkit-text-fill-color: $Color1;
+            -moz-text-fill-color: $Color1;
+          }
+        }
+
+        a:first-child {
+          border-top: 0px;
+        }
+
+        a:hover {
+          background-color: $Color2;
+        }
+      }
+    }
+  }
+
+  #content {
+    float: none;
+    width: 100%;
+    height: auto;
+    margin-top: calc(10px + 2.5rem);
+    padding: 0px;
+  }
+
+  .items_list_container {
+    .items_list_filter_container {
+      position: relative;
+      padding: 1rem 1.5rem;
+
+      .items_list_sort {
+          margin-bottom: 0.5rem;
+      }
+
+      .items_list_sort, .items_list_filter {
+        float: none;
+        @include text-align($direction, left);
+      }
+
+      > div:not(.clear) {
+        position: static;
+
+        .items_list_filter_box {
+          top: calc(100% - 7px);
+          @include position($direction, left, 0px);
+        }
+      }
+    }
+  }
+}
+/*#endregion mobile */

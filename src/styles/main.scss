@@ -1,0 +1,327 @@
+
+@import "./variables";
+@import "./mixin";
+
+/*#region reset css*/
+* {
+  margin: 0px;
+  padding: 0px;
+  text-decoration: none;
+  font-weight: normal;
+  font-size: inherit;
+  color: inherit;
+  list-style: none;
+  border: 0px;
+  outline: none;
+}
+/*#endregion reset css*/
+
+/*#region basic css*/
+html, body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-size: $MainFontSize !important; // to override the material icons style
+  color: $MainFontColor;
+  background-color: $MainBackgroundColor;
+  direction: $direction;
+}
+
+a {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+input {
+  @include input($Color1, $MainBackgroundColor, $MainFontColor);
+}
+
+button {
+  @include button($Color1, $MainBackgroundColor, $Color1);
+}
+
+button:hover {
+  @include button($MainBackgroundColor, $Color1, $MainBackgroundColor);
+}
+
+#main {
+  position: absolute;
+  top: 3%;
+  width: 98%;
+  height: 95%;
+  padding: 0px 1%;
+  overflow: hidden;
+}
+
+.clear {
+  clear: both;
+}
+/*#endregion basic css*/
+
+/*#region commun classes*/
+/*#region items list*/
+.items_list_container {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+
+  .items_list_filter_container {
+    padding: 1.5rem;
+    background-color: $Color1;
+    border-radius: 10px;
+    margin-bottom: $ListingItemsSpacing;
+
+    .items_list_sort {
+      @include float_left($direction);
+      @include text-align($direction, left);
+    }
+
+    .items_list_filter {
+      @include float_right($direction);
+      @include text-align($direction, right);
+    }
+
+    > div:not(.clear) {
+      position: relative;
+      font-size: 1rem;
+      color: $ListSortByColor;
+
+      .items_list_filter_value_container {
+        color: $ListSortByValueColor;
+
+        .items_list_filter_value {
+          display: inline-block;
+          max-width: 200px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          vertical-align: bottom;
+        }
+      }
+
+      .items_list_filter_value_container:hover {
+        color: $ListSortByColor;
+      }
+
+      .items_list_filter_box#feedback_filter_list {
+        min-width: 15rem;
+        @include text-align($direction, left);
+      }
+
+      .items_list_filter_box {
+        position: absolute;
+        top: 100%;
+        @include position($direction, right, 0px);
+        background-color: $Color1;
+        color: $ListSortByValueColor;
+        border-radius: 0px 0px 10px 10px;
+        @include animate_section_toggle;
+        z-index: 100;
+
+        a {
+          display: block;
+          padding: 0.5rem;
+        }
+
+        a:hover {
+          color: $ListSortByColor;
+        }
+
+        .input_container, .items_list_filter_btns {
+          margin: 0.5rem;
+        }
+
+        .filter_options {
+          span {
+            @include float_left($direction);
+            width: 1.3rem;
+            min-height: 1px;
+            @include margin($direction, right, 0.25em);
+
+            .mat-icon {
+              font-size: 1.2em;
+              width: auto;
+              height: auto;
+            }
+          }
+        }
+
+        button {
+          @include float_right($direction);
+          @include margin($direction, left, 0.5em);
+        }
+      }
+    }
+
+    .mat-icon {
+      vertical-align: bottom;
+    }
+  }
+
+  .items_list {
+    flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    li {
+      display: flex;
+      flex-direction: row;
+      min-height: 100px;
+      margin-bottom: $ListingItemsSpacing;
+      padding: 1.5rem;
+      font-size: 1rem;
+      background-color: $ListingItemBgColor;
+      border-radius: 5px;
+
+      .item_vote {
+        position: relative;
+        display: block;
+
+        a {
+          display: block;
+          padding: 0.25rem 0.5rem;
+          font-size: 0.8em;
+          background-color: $MainBackgroundColor;
+          text-align: center;
+          border-radius: 10px;
+          color: $Color1;
+          font-weight: bold;
+        }
+
+        .item_vote_icon {
+          display: block;
+
+          .mat-icon {
+            height: 1rem;
+          }
+        }
+
+        .voting_success {
+          display: none;
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          color: $Color1;
+
+          .mat-icon {
+            font-size: 3em;
+            width: auto;
+            height: auto;
+            opacity: 0;
+          }
+        }
+      }
+
+      .item_vote:not(.remove_active_mobile) a:hover {
+        background-color: $Color1;
+        color: $MainBackgroundColor;
+      }
+
+      .item_name_container {
+        padding: 0em 2em;
+        flex: 2;
+
+        .item_name {
+          font-size: 1em;
+          margin-bottom: 0.6em;
+          color: $Color1;
+          font-weight: bold;
+        }
+
+        .item_desc {
+          font-size: 0.8em;
+          color: $Color2;
+        }
+      }
+
+      .item_comment_count {
+        .mat-icon {
+          height: auto;
+          width: auto;
+          vertical-align: text-bottom;
+          @include margin($direction, right, 0.6em);
+          font-size: 0.8em;
+          color: $Color3;
+        }
+
+        span {
+          color: $Color1;
+          font-weight: bold;
+          font-size: 0.8em;
+        }
+      }
+
+      .item_error {
+        color: darkred;
+      }
+    }
+  }
+}
+/*#endregion items list*/
+/*#endregion commun classes*/
+
+/*#region menu*/
+#menu {
+  @include float_left($direction);
+  width: 18%;
+  height: 100%;
+  padding: 0px 1%;
+
+  .mobile_menu_icon{
+      display: none;
+  }
+
+  ul {
+    height: 100%;
+
+    li {
+      font-size: 1.2rem;
+      height: 20%;
+      min-height: 5em;
+      margin-bottom: 2em;
+
+      a {
+        display: flex;
+        height: calc(100% - 1.2em);
+        padding-bottom: 1.2em;
+        @include padding($direction, left, 1.2em);
+        text-transform: capitalize;
+        border-radius: 10px;
+        background: $MenuItemsBackgroundColor;
+        background: $MenuItemsBackgroundGradient;
+      }
+
+      a:hover {
+        background: $Color1;
+      }
+
+      span {
+        align-self: flex-end;
+        background: $MenuItemsTextGradient;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        -moz-background-clip: text;
+        -moz-text-fill-color: transparent;
+        /* white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;*/
+      }
+    }
+  }
+}
+/*#endregion menu*/
+
+/*#region content*/
+#content {
+  @include float_left($direction);
+  width: 80%;
+  height: 100%;
+}
+/*#endregion content*/
+
+
+@import "./responsive";

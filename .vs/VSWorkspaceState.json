@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\feedback",
+    "\\src\\app\\_shared",
+    "\\src\\app\\_shared\\directives",
+    "\\src\\styles"
+  ],
+  "SelectedNode": "\\src\\styles\\mixin.scss",
+  "PreviewInSolutionExplorer": false
+}
